@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>LA LLEGADA – Cuenta Regresiva</title>
+  <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+  <h1>La Mision –  Entrega de RESULTADOS</h1>
+  <h2>resultados E.C.O.E.M.S en ...</h2>
+  <div class="contador" id="cuenta">Cargando...</div>
+  <div id="Llegaron"></div>
+
+  <script>
+    function actualizarCuenta() {
+      const ahora = new Date();
+      const objetivo = new Date("August 19, 2025 09:00:00");//Fecha y Hora aqui <-------------------------------
+      const diferencia = objetivo - ahora;
+
+      const cuenta = document.getElementById("cuenta");
+      const explosion = document.getElementById("Llegaron");
+
+      if (diferencia <= 0) {
+        cuenta.innerHTML = "<span class='destacado'>¡OBJETIVO ALCANZADO!</span><br>¡Los resultados llegaron!";
+        explosion.style.opacity = 1;
+        setTimeout(() => explosion.style.opacity = 0, 1500);
+        return;
+      }
+
+      const segundos = Math.floor((diferencia / 1000) % 60);
+      const minutos = Math.floor((diferencia / 1000 / 60) % 60);
+      const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+
+      cuenta.innerHTML = `
+        T-${dias} <span class="destacado">días</span>,
+        ${horas.toString().padStart(2, '0')} <span class="destacado">h</span>,
+        ${minutos.toString().padStart(2, '0')} <span class="destacado">m</span>,
+        ${segundos.toString().padStart(2, '0')} <span class="destacado">s</span>
+      `;
+    }
+
+    actualizarCuenta();
+    setInterval(actualizarCuenta, 1000);
+  </script>
+
+</body>
+</html>
